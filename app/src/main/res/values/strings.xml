@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Emotional Detection</string>
+    <string name="secure_feature">Secure Feature</string>
+    <string name="select_the_features_which_you_want_to_secure_and_open_using_our_machine_learning_feature">Select the features which you want to secure and open using our machine learning feature</string>
 </resources>
