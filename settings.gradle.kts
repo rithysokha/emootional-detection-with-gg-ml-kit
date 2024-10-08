@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Emotional Detection"
+rootProject.name = "Emotion Detector"
 include(":app")
- 
