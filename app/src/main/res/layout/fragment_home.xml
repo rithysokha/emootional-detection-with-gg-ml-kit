@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:text="Secure Features"
+            android:text="@string/secure_features"
             android:textColor="#000000"
             android:textSize="26sp"
             android:textStyle="bold"
