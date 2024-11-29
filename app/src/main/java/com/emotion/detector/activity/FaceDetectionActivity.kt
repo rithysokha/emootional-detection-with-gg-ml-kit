@@ -2,6 +2,7 @@ package com.emotion.detector.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -18,7 +19,11 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetector
 import com.google.mlkit.vision.face.FaceDetectorOptions
+import org.tensorflow.lite.Interpreter
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.util.concurrent.Executors
+import com.google.mlkit.vision.face.Face
 
 class FaceDetectionActivity : AppCompatActivity() {
 
@@ -27,6 +32,7 @@ class FaceDetectionActivity : AppCompatActivity() {
     private lateinit var processCameraProvider: ProcessCameraProvider
     private lateinit var cameraPreview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
+    private lateinit var tfliteInterpreter: Interpreter
 
     private val cameraXViewModel = viewModels<CameraXViewModel>()
 
@@ -34,6 +40,8 @@ class FaceDetectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFaceDetectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        initTFLiteModel()  // Initialize TFLite Model
 
         cameraSelector =
             CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build()
@@ -57,6 +65,17 @@ class FaceDetectionActivity : AppCompatActivity() {
         } catch (illegalArgumentException: IllegalArgumentException) {
             Log.e(TAG, illegalArgumentException.message ?: "IllegalArgumentException")
         }
+    }
+
+    private fun initTFLiteModel() {
+        val assetFileDescriptor = assets.openFd("model.tflite")
+        val inputStream = assetFileDescriptor.createInputStream()
+        val byteBuffer = inputStream.channel.map(
+            java.nio.channels.FileChannel.MapMode.READ_ONLY,
+            assetFileDescriptor.startOffset,
+            assetFileDescriptor.declaredLength
+        )
+        tfliteInterpreter = Interpreter(byteBuffer)
     }
 
     private fun bindInputAnalyser() {
@@ -94,12 +113,53 @@ class FaceDetectionActivity : AppCompatActivity() {
             faces.forEach { face ->
                 val faceBox = FaceBox(binding.graphicOverlay, face, imageProxy.image!!.cropRect)
                 binding.graphicOverlay.add(faceBox)
+
+                // Preprocess the detected face and predict using TFLite
+                val inputBuffer = preprocessFace(face, imageProxy)
+                val outputBuffer = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder())
+
+                tfliteInterpreter.run(inputBuffer, outputBuffer)
+                outputBuffer.rewind()
+                val prediction = outputBuffer.float
+
+                Log.d(TAG, "Prediction: $prediction")
             }
         }.addOnFailureListener {
             it.printStackTrace()
         }.addOnCompleteListener {
             imageProxy.close()
         }
+    }
+
+    private fun preprocessFace(face: Face, imageProxy: ImageProxy): ByteBuffer {
+        // Assuming a fixed input size, for example 224x224 and RGB channels
+        val inputSize = 224
+        val byteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize * 3)
+            .order(ByteOrder.nativeOrder())
+
+        // Extract image data for the detected face
+        // You need to implement the actual cropping and resizing logic here
+        // Assume cropFaceBitmap returns a resized Bitmap for the face bounding box
+        val faceBitmap: Bitmap = cropFaceBitmap(face, imageProxy, inputSize)
+
+        val intValues = IntArray(inputSize * inputSize)
+        faceBitmap.getPixels(intValues, 0, inputSize, 0, 0, inputSize, inputSize)
+        for (pixel in intValues) {
+            val r = (pixel shr 16 and 0xFF) / 255.0f
+            val g = (pixel shr 8 and 0xFF) / 255.0f
+            val b = (pixel and 0xFF) / 255.0f
+            byteBuffer.putFloat(r)
+            byteBuffer.putFloat(g)
+            byteBuffer.putFloat(b)
+        }
+
+        return byteBuffer
+    }
+
+    private fun cropFaceBitmap(face: Face, imageProxy: ImageProxy, inputSize: Int): Bitmap {
+        // Implement face cropping and resizing to inputSize x inputSize Bitmap
+        // Placeholder function: actual implementation depends on your app's requirements
+        return Bitmap.createBitmap(inputSize, inputSize, Bitmap.Config.ARGB_8888)
     }
 
     companion object {
