@@ -52,6 +52,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation(libs.litert)
+    implementation(libs.litert.support.api)
+//    implementation(libs.litert)
 //    implementation(libs.androidx.camera.lifecycle)
 //    implementation(libs.androidx.activity)
 //    implementation(libs.androidx.camera.view)
