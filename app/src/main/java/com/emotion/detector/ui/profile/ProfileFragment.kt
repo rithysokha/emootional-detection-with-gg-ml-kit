@@ -71,25 +71,26 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun applyLanguage(language: Int) {
-        val locale = when (language) {
-            0 -> "en"
-            1 -> "km"
-            else -> "en"
-        }
-
-        val currentLocale = requireContext().resources.configuration.locales.get(0).language
-        if (currentLocale != locale) {
-            val localeToSet = java.util.Locale(locale)
-            java.util.Locale.setDefault(localeToSet)
-
-            val configuration = requireContext().resources.configuration
-            configuration.setLocale(localeToSet)
-            configuration.setLayoutDirection(localeToSet)
-
-            requireContext().createConfigurationContext(configuration)
-
-            // Recreate the activity to apply the new configuration
-            activity?.recreate()
-        }
+    val locale = when (language) {
+        0 -> "en"
+        1 -> "km"
+        else -> "en"
     }
+
+    val currentLocale = requireContext().resources.configuration.locales.get(0).language
+    if (currentLocale != locale) {
+        val localeToSet = java.util.Locale(locale)
+        java.util.Locale.setDefault(localeToSet)
+
+        val configuration = requireContext().resources.configuration
+        configuration.setLocale(localeToSet)
+        configuration.setLayoutDirection(localeToSet)
+
+        val context = requireContext().createConfigurationContext(configuration)
+        requireContext().resources.updateConfiguration(configuration, context.resources.displayMetrics)
+
+        // Recreate the activity to apply the new configuration
+        activity?.recreate()
+    }
+}
 }
