@@ -10,4 +10,8 @@
         <item>Dark</item>
         <item>Light</item>
     </string-array>
+    <string name="change_language">ប្ដូរភាសា</string>
+    <string name="notification">ដំណឹង</string>
+    <string name="setting">កំណត់</string>
+
 </resources>

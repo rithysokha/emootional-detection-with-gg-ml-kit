@@ -1,4 +1,4 @@
-package com.emotion.detector.ui.dashboard
+package com.emotion.detector.ui.notification
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.emotion.detector.ui.dashboard.DashboardFragment"
+        android:name="com.emotion.detector.ui.notification.NotificationListFragment"
         android:label="Notification"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_profile"
