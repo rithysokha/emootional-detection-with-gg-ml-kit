@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.emotion.detector.R
@@ -54,7 +55,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             ) {
                 // Save preference and update language
                 preferences.edit().putInt("language", position).apply()
-//                applyLanguage(position)
+                applyLanguage(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -69,25 +70,26 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-//    private fun applyLanguage(language: Int) {
-//        val locale = when (language) {
-//            0 -> "en" // English
-//            1 -> "km" // Khmer
-//            else -> "en"
-//        }
-//
-//        val localeToSet = java.util.Locale(locale)
-//        java.util.Locale.setDefault(localeToSet)
-//
-//        val configuration = requireContext().resources.configuration
-//        configuration.setLocale(localeToSet)
-//        configuration.setLayoutDirection(localeToSet)
-//
-//        requireContext().createConfigurationContext(configuration)
-//
-//        // Optionally restart the activity to apply changes
-//        requireActivity().runOnUiThread {
-//            requireActivity().recreate()
-//        }
-//    }
+    private fun applyLanguage(language: Int) {
+        val locale = when (language) {
+            0 -> "en"
+            1 -> "km"
+            else -> "en"
+        }
+
+        val currentLocale = requireContext().resources.configuration.locales.get(0).language
+        if (currentLocale != locale) {
+            val localeToSet = java.util.Locale(locale)
+            java.util.Locale.setDefault(localeToSet)
+
+            val configuration = requireContext().resources.configuration
+            configuration.setLocale(localeToSet)
+            configuration.setLayoutDirection(localeToSet)
+
+            requireContext().createConfigurationContext(configuration)
+
+            // Recreate the activity to apply the new configuration
+            activity?.recreate()
+        }
+    }
 }
