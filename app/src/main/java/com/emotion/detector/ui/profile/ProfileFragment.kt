@@ -65,17 +65,17 @@ class ProfileFragment: Fragment() {
     }
 
     private fun displayProfile(profile: Profile) {
-        binding.usernameData.text = profile.name
-        binding.emailData.text = profile.email
-        binding.phoneData.text = profile.phone
-        binding.addressData.text = profile.address
-        Picasso.get()
-            .load(profile.imgUrl)
-            .into(binding.imgProfile)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+//        binding.usernameData.text = profile.name
+//        binding.emailData.text = profile.email
+//        binding.phoneData.text = profile.phone
+//        binding.addressData.text = profile.address
+//        Picasso.get()
+//            .load(profile.imgUrl)
+//            .into(binding.imgProfile)
+//    }
+//
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
     }
 }
