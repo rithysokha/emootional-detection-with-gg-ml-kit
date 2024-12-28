@@ -32,6 +32,26 @@ class NotificationListFragment : Fragment() {
             val notifications = listOf(
                 Notification("New Feature", "Check out the latest features."),
                 Notification("Maintenance", "Scheduled maintenance tonight."),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
+                Notification("Welcome", "Thanks for joining us!"),
                 Notification("Welcome", "Thanks for joining us!")
             )
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
