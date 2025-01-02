@@ -1,15 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.emotion.detector"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.emotion.detector"
-        minSdk = 33
+        minSdk = 34
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -54,4 +56,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-messaging:24.1.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation ("androidx.core:core-ktx:1.12.0")
 }
