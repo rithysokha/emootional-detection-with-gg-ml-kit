@@ -12,20 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.emotion.detector.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.emotion.detector.ui.history.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.emotion.detector.ui.notification.NotificationListFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.emotion.detector.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
+        android:label="Setting"
         tools:layout="@layout/fragment_profile" />
 </navigation>

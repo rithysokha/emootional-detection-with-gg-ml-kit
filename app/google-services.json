@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "864400988951",
+    "project_id": "android-4e890",
+    "storage_bucket": "android-4e890.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864400988951:android:5656e1c351a4f05dccf552",
+        "android_client_info": {
+          "package_name": "com.emotion.detector"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeQ9W5aNz8aSiQpLjodVK2fmBBl9cjOLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
