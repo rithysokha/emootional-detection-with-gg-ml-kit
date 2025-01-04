@@ -52,45 +52,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/object_detection"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_circle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emotion_menu"
-                tools:ignore="TextSizeCheck">
-
-                <ImageView
-                    android:id="@+id/camera1"
-                    android:layout_width="140dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
-                    android:contentDescription="camera_image_photo"
-                    android:src="@drawable/camera_image"
-                    app:layout_constraintBottom_toTopOf="@id/object"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/object"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Object Detection"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.518"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/camera1"
-                    tools:ignore="DuplicateIds,MissingConstraints" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/face_detection"
@@ -103,34 +64,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints">
 
-                <ImageView
-                    android:id="@+id/camera3"
-                    android:layout_width="140dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
-                    android:contentDescription="camera_image_photo"
-                    android:src="@drawable/camera_image"
-                    app:layout_constraintBottom_toTopOf="@id/face"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="DuplicateIds" />
-
-                <TextView
-                    android:id="@+id/face"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Face Detection"
-                    android:textSize="15sp"
+                <Button
+                    android:id="@+id/mesh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:drawablePadding="20dp"
+                    android:text="@string/face_detection"
+                    android:textAllCaps="false"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.518"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/camera3"
-                    tools:ignore="DuplicateIds,MissingConstraints" />
+                    tools:layout_editor_absoluteX="0dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

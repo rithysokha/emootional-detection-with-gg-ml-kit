@@ -10,4 +10,5 @@
     <string name="placeholder_phone">Phone</string>
     <string name="placeholder_dob">Date of Birth</string>
     <string name="placeholder_address">Address</string>
+    <string name="face_detection">Face Detection</string>
 </resources>
