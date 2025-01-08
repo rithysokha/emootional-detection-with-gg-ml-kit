@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emotion.detector.R
-import com.emotion.detector.model.Notification
+import com.emotion.detector.data.database.Notification
 
 class NotificationAdapter(private val notificationList: List<Notification>) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {

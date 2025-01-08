@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emotion.detector.R
 import com.emotion.detector.adapter.NotificationAdapter
-import com.emotion.detector.model.Notification
 
 class NotificationListFragment : Fragment() {
+
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,34 +31,16 @@ class NotificationListFragment : Fragment() {
 
         try {
             val recyclerView: RecyclerView = view.findViewById(R.id.rvNotifications)
-
-            val notifications = listOf(
-                Notification("New Feature", "Check out the latest features."),
-                Notification("Maintenance", "Scheduled maintenance tonight."),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!"),
-                Notification("Welcome", "Thanks for joining us!")
-            )
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            recyclerView.adapter = NotificationAdapter(notifications)
+
+            // Observe notifications from the ViewModel
+            notificationViewModel.notifications.observe(viewLifecycleOwner, Observer { notifications ->
+                if (notifications != null) {
+                    recyclerView.adapter = NotificationAdapter(notifications)
+                } else {
+                    Log.d("NotificationListFragment", "No notifications found")
+                }
+            })
         } catch (e: Exception) {
             Log.e("NotificationListFragment", "Error in onViewCreated", e)
         }
