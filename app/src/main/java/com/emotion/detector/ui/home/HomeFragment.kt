@@ -51,22 +51,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe to ViewModel state
-        viewModel.greetingState.observe(viewLifecycleOwner) { greetingState ->
-            when(greetingState.state) {
-                State.success -> {
-                    displayGreeting(greetingState.data!!)
-                }
-                State.error -> {
-                     binding.secureText.text="Error..."
-                }
-
-                State.loading -> binding.secureText.text="Loading..."
-            }
-        }
-        // Forward event to ViewModel
-        viewModel.loadGreeting()
-
         binding.mesh.setOnClickListener {
             this.action = Action.FACE_DETECTION
             requestCameraAndStart()
