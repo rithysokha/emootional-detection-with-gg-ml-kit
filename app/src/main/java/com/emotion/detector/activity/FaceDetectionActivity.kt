@@ -1,7 +1,6 @@
 package com.emotion.detector.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -21,7 +20,6 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetector
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.concurrent.Executors
@@ -34,7 +32,7 @@ class FaceDetectionActivity : AppCompatActivity() {
     private lateinit var processCameraProvider: ProcessCameraProvider
     private lateinit var cameraPreview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
-    private var interpreter: Interpreter? = null
+    private lateinit var tfliteInterpreter: Interpreter
 
     private val cameraXViewModel = viewModels<CameraXViewModel>()
 
@@ -43,12 +41,11 @@ class FaceDetectionActivity : AppCompatActivity() {
         binding = ActivityFaceDetectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        createInterpreter()  // Initialize TFLite Model
+        initTFLiteModel()  // Initialize TFLite Model
 
         cameraSelector =
             CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build()
-        cameraXViewModel.value.processCameraProvider.observe(this){
-                provider ->
+        cameraXViewModel.value.processCameraProvider.observe(this) { provider ->
             processCameraProvider = provider
             bindCameraPreview()
             bindInputAnalyser()
@@ -69,9 +66,15 @@ class FaceDetectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun createInterpreter() {
-        val tfLiteOptions = Interpreter.Options()
-        interpreter = Interpreter(FileUtil.loadMappedFile(this, TFLITE_MODEL_NAME), tfLiteOptions)
+    private fun initTFLiteModel() {
+        val assetFileDescriptor = assets.openFd("0.399_MobileNetV2.tflite")
+        val inputStream = assetFileDescriptor.createInputStream()
+        val byteBuffer = inputStream.channel.map(
+            java.nio.channels.FileChannel.MapMode.READ_ONLY,
+            assetFileDescriptor.startOffset,
+            assetFileDescriptor.declaredLength
+        )
+        tfliteInterpreter = Interpreter(byteBuffer)
     }
 
     private fun bindInputAnalyser() {
@@ -108,28 +111,20 @@ class FaceDetectionActivity : AppCompatActivity() {
         detector.process(inputImage).addOnSuccessListener { faces ->
             binding.graphicOverlay.clear()
             faces.forEach { face ->
-                val byteBuffer = preprocessFace(face, imageProxy) // Preprocess the face
-                val outputBuffer = ByteBuffer.allocateDirect(4 * OUTPUT_CLASSES).order(ByteOrder.nativeOrder())
-
-                // Run inference
-                interpreter!!.run(byteBuffer, outputBuffer)
-
-                // Extract predictions
-                outputBuffer.rewind()
-                val predictions = FloatArray(OUTPUT_CLASSES)
-                outputBuffer.asFloatBuffer().get(predictions)
-
-                val predictedEmotion = predictions.indices.maxByOrNull { predictions[it] }
-                val emotionLabel = emotionLabels[predictedEmotion ?: 0]
-//                Log.d(TAG, "Predicted point: $predictedEmotion")
-//                Log.d(TAG, "Predicted Emotion: $emotionLabel")
-
-                // Overlay emotion label
-                val faceBox = FaceBox(binding.graphicOverlay, face, imageProxy.image!!.cropRect,
-                    predictedEmotion.toString()
-                )
-                // Update overlay with the emotion
+                val faceBox = FaceBox(binding.graphicOverlay, face, imageProxy.image!!.cropRect)
                 binding.graphicOverlay.add(faceBox)
+
+                // Preprocess the detected face and predict using TFLite
+                val inputBuffer = preprocessFace(face, imageProxy)
+                val outputBuffer =
+                    ByteBuffer.allocateDirect(8).order(ByteOrder.nativeOrder()) // Adjusted size
+
+                tfliteInterpreter.run(inputBuffer, outputBuffer)
+                outputBuffer.rewind()
+                val prediction1 = outputBuffer.float
+                val prediction2 = outputBuffer.float
+
+                Log.d(TAG, "Prediction: $prediction1, $prediction2")
             }
         }.addOnFailureListener {
             it.printStackTrace()
@@ -139,21 +134,25 @@ class FaceDetectionActivity : AppCompatActivity() {
     }
 
     private fun preprocessFace(face: Face, imageProxy: ImageProxy): ByteBuffer {
-        val inputSize = 48 // Set the input size to 48x48 for your model
-        val byteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize) // For float32
+        // Assuming the model expects 224x224 input size and RGB channels
+        val inputSize = 224
+        val byteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize * 3)
             .order(ByteOrder.nativeOrder())
 
-        // Crop and resize face
-        val faceBitmap = cropFaceBitmap(face, imageProxy, inputSize)
+        // Extract image data for the detected face
+        // You need to implement the actual cropping and resizing logic here
+        // Assume cropFaceBitmap returns a resized Bitmap for the face bounding box
+        val faceBitmap: Bitmap = cropFaceBitmap(face, imageProxy, inputSize)
 
-        // Convert to grayscale and normalize
         val intValues = IntArray(inputSize * inputSize)
         faceBitmap.getPixels(intValues, 0, inputSize, 0, 0, inputSize, inputSize)
-
         for (pixel in intValues) {
-            // Convert pixel to grayscale value
-            val gray = (pixel shr 16 and 0xFF + pixel shr 8 and 0xFF + pixel and 0xFF) / 3.0f / 255.0f
-            byteBuffer.putFloat(gray)
+            val r = (pixel shr 16 and 0xFF) / 255.0f
+            val g = (pixel shr 8 and 0xFF) / 255.0f
+            val b = (pixel and 0xFF) / 255.0f
+            byteBuffer.putFloat(r)
+            byteBuffer.putFloat(g)
+            byteBuffer.putFloat(b)
         }
 
         return byteBuffer
@@ -165,19 +164,8 @@ class FaceDetectionActivity : AppCompatActivity() {
         return Bitmap.createBitmap(inputSize, inputSize, Bitmap.Config.ARGB_8888)
     }
 
-    private fun getInterpreter(
-        context: Context,
-        modelName: String,
-        tfLiteOptions: Interpreter.Options
-    ): Interpreter {
-        return Interpreter(FileUtil.loadMappedFile(context, modelName), tfLiteOptions)
-    }
-
     companion object {
         private val TAG = FaceDetectionActivity::class.simpleName
-        const val TFLITE_MODEL_NAME = "model.tflite"
-        const val OUTPUT_CLASSES = 7
-        val emotionLabels = arrayOf("Angry", "Disgusted", "Fear", "Happy", "Sad", "Surprise", "Neutral")
 
         fun startActivity(fragment: HomeFragment) {
             val context = fragment.requireContext() // Get the Context from the Fragment
