@@ -94,7 +94,6 @@ class FaceDetectionActivity : AppCompatActivity() {
             processImageProxy(detector, imageProxy)
         }
 
-
         try {
             processCameraProvider.bindToLifecycle(this, cameraSelector, imageAnalysis)
         } catch (illegalStateException: IllegalStateException) {
@@ -111,7 +110,7 @@ class FaceDetectionActivity : AppCompatActivity() {
         detector.process(inputImage).addOnSuccessListener { faces ->
             binding.graphicOverlay.clear()
             faces.forEach { face ->
-                val faceBox = FaceBox(binding.graphicOverlay, face, imageProxy.image!!.cropRect)
+                val faceBox = FaceBox(binding.graphicOverlay, face, imageProxy.image!!.cropRect,"hello")
                 binding.graphicOverlay.add(faceBox)
 
                 // Preprocess the detected face and predict using TFLite
