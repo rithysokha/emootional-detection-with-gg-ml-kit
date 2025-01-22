@@ -15,6 +15,7 @@
     <string name="notification">Notification</string>
     <string name="setting">Setting</string>
     <string name="face_detection">Face Detection</string>
+    <string name="edit_profile">Edit Profile</string>
     <string-array name="language_options">
             <item>English</item>
             <item>Khmer</item>
