@@ -10,7 +10,7 @@ object ApiManager {
     fun getApiService(): ApiService {
         if(apiService == null) {
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://spring.sokharithy.me/api/v1/")
+                .baseUrl("https://contactless.sunchengchhay.me/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             apiService = retrofit.create(ApiService::class.java)

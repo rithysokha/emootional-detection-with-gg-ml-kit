@@ -7,9 +7,17 @@ public class Profile {
     private String imgUrl;
     private String address;
     private String phone;
+    private String dob;
 
     public String getName() {
         return name;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+    public String getDob() {
+        return dob;
     }
 
     public void setName(String name) {
@@ -47,6 +55,4 @@ public class Profile {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
 }
