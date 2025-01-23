@@ -22,4 +22,5 @@
     <string name="placeholder_dob">ថ្ងៃខែឆ្នាំកំណើត</string>
     <string name="placeholder_address">អាស័យដ្ឋាន</string>
     <string name="title_profile">ប្រវត្តិរូប</string>
+    <string name="view_history">មើលប្រវត្តិ</string>
 </resources>

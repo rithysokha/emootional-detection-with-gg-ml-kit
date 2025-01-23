@@ -33,7 +33,7 @@
                 android:padding="18dp"
                 android:text="@string/edit_profile"
                 style="@style/Theme.EmotionDetector"
-                android:textSize="28sp"/>
+                android:textSize="26sp"/>
         </LinearLayout>
 
         <LinearLayout
