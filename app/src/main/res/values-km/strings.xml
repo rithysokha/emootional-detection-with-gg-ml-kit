@@ -16,5 +16,10 @@
     <string name="title_home">ផ្ទះ</string>
     <string name="face_detection">Face Detection</string>
     <string name="edit_profile">កែប្រវត្តិរូប</string>
-
+    <string name="placeholder_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="placeholder_email">អ៊ីមែល</string>
+    <string name="placeholder_phone">លេខទូរស័ព្ទ</string>
+    <string name="placeholder_dob">ថ្ងៃខែឆ្នាំកំណើត</string>
+    <string name="placeholder_address">អាស័យដ្ឋាន</string>
+    <string name="title_profile">ប្រវត្តិរូប</string>
 </resources>

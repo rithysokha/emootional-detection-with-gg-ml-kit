@@ -4,12 +4,12 @@
     <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_history">History</string>
     <string name="secure_features" translatable="false">Secure Features</string>
-    <string name="title_profile" translatable="false">Profile</string>
-    <string name="placeholder_username" translatable="false">Username</string>
-    <string name="placeholder_email" translatable="false">Email</string>
-    <string name="placeholder_phone" translatable="false">Phone</string>
-    <string name="placeholder_dob" translatable="false">Date of Birth</string>
-    <string name="placeholder_address" translatable="false">Address</string>
+    <string name="title_profile">Profile</string>
+    <string name="placeholder_username">Username</string>
+    <string name="placeholder_email">Email</string>
+    <string name="placeholder_phone">Phone Number</string>
+    <string name="placeholder_dob">Date of Birth</string>
+    <string name="placeholder_address">Address</string>
     <string name="change_language">Change Language</string>
     <string name="dark_mode" translatable="false">Dark mode</string>
     <string name="notification">Notification</string>

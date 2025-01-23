@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:padding="18dp"
                 android:text="@string/edit_profile"
-                android:textSize="28sp" />
+                style="@style/Theme.EmotionDetector"
+                android:textSize="28sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,8 +51,10 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_centerHorizontal="true"
+                style="@style/Theme.EmotionDetector"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="90dp"
-                app:strokeColor="@android:color/holo_blue_bright"
+                app:strokeColor="@color/teal_200"
                 app:strokeWidth="5dp">
 
                 <ImageView

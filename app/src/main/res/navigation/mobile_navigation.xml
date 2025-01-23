@@ -20,12 +20,12 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.emotion.detector.ui.notification.NotificationListFragment"
-        android:label="Notification"
+        android:label="@string/notification"
         tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.emotion.detector.ui.profile.ProfileFragment"
-        android:label="Setting"
+        android:label="@string/setting"
         tools:layout="@layout/fragment_profile" />
 </navigation>
