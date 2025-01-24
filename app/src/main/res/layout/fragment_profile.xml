@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="409dp"
-        android:layout_height="220dp"
+        android:layout_height="160dp"
+        android:paddingHorizontal="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,10 +31,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="18dp"
                 android:text="@string/edit_profile"
                 style="@style/Theme.EmotionDetector"
-                android:textSize="26sp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -48,8 +48,8 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 style="@style/Theme.EmotionDetector"
                 app:cardBackgroundColor="@color/white"
@@ -78,7 +78,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -109,7 +109,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -139,7 +139,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -171,7 +171,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -203,7 +203,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -235,7 +235,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">
@@ -270,7 +270,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:background="@drawable/border_bottom"
             android:orientation="horizontal">

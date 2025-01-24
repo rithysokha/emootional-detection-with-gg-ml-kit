@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:layout_marginHorizontal="10dp"
+    android:layout_marginHorizontal="5dp"
     android:background="@drawable/border_bottom"
     app:cardElevation="6dp">
 
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center|start"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:paddingVertical="5dp"
         tools:ignore="UselessParent">
 
         <TextView
